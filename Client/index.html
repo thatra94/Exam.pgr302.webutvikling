@@ -42,8 +42,8 @@
             deleteBtn.onclick = deleteItem;
         })();
                 
-        const webAPIUrl = "https://localhost:5001/monsters";
-            
+        const webAPIUrl = "https://localhost:5001/food";
+
         function getResult(){
         
             axios.get(webAPIUrl)      
@@ -53,8 +53,8 @@
         }
         
         function postNew(){     
-            const newMonster = { name: "Frankenstein", age: 45};
-            axios.post(webAPIUrl, newMonster)
+            const newFood = { name: "tomato", price: 45, type: "vegatable" };
+            axios.post(webAPIUrl, newFood)
                 .then( response => {
                 outputDiv.innerHTML = JSON.stringify( response.data );
             })
@@ -70,9 +70,9 @@
         
         function putItem(){
             
-            const updateMonster = { id:1, name: "Count Duck", age: 3 };
+            const updateFood = { id:1, name: "cucumber", price: 5, type: "vegatable" };
         
-            axios.put(webAPIUrl, updateMonster)
+            axios.put(webAPIUrl, updateFood)
             .then( response => {
                     outputDiv.innerHTML = JSON.stringify( response.data ); 
                 });
@@ -87,7 +87,7 @@
         
         function deleteItem(){ //delete sender inn id til elementet som skal slettes
             
-            axios.delete("https://localhost:5001/monsters/3")
+            axios.delete("https://localhost:5001/food/3")
                 .then( response => {
                     outputDiv.innerHTML = JSON.stringify( response.data );
                 });

@@ -9,20 +9,16 @@ namespace exam.pgr302.Controllers {
     [ApiController]
     [Route("[controller]")]
     [EnableCors("AllowAnyOrigin")]
-    public class FoodsController : Controller {
+    public class FoodController : Controller {
         private readonly FoodContext _context;
     
 
-    public FoodsController(FoodContext context) {
+    public FoodController(FoodContext context) {
         _context = context;
     }
 
     [HttpGet]
     public async Task<IEnumerable<Food>> Get() {
-    Food newFood = new Food {Name = "strawberry", Price = 12, Type = "vegetable"}; 
-    _context.Food.Add(newFood);
-    await _context.SaveChangesAsync();
-    
     List<Food> foodList = await _context.Food.ToListAsync();
     return foodList;
     }
