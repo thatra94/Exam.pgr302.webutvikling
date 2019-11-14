@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Axios to WebAPI</title>
+</head>
+<body>
+    
+    <div class="container">
+        
+        <header>
+            <h1>Testing out Axios to WebAPI</h1>
+        </header>
+        
+        <nav>
+            <input id="get-btn" type="button" value="Get">
+            <input id="post-btn" type="button" value="Post">
+            <input id="put-btn" type="button" value="Put">
+            <input id="delete-btn" type="button" value="Delete">
+        </nav>
+        
+        <div id="output-div"></div>
+        
+    </div>   
+    
+    <script src="scripts/axios-min.js"></script>
+    <script>
+        
+        /*
+            HTML-objekter
+        */        
+        const getBtn = document.getElementById("get-btn");
+        const postBtn = document.getElementById("post-btn");
+        const putBtn = document.getElementById("put-btn");
+        const deleteBtn = document.getElementById("delete-btn");
+        const outputDiv = document.getElementById("output-div");
+        
+        const setEvents = ( () => {
+            getBtn.onclick = getResult;
+            postBtn.onclick = postNew;
+            putBtn.onclick = putItem;
+            deleteBtn.onclick = deleteItem;
+        })();
+                
+        const webAPIUrl = "https://localhost:5001/monsters";
+            
+        function getResult(){
+        
+            axios.get(webAPIUrl)      
+                .then( response => {
+                    outputDiv.innerHTML = JSON.stringify( response.data );
+                } )
+        }
+        
+        function postNew(){     
+            const newMonster = { name: "Frankenstein", age: 45};
+            axios.post(webAPIUrl, newMonster)
+                .then( response => {
+                outputDiv.innerHTML = JSON.stringify( response.data );
+            })
+            
+            /*
+            const randomNumber = Math.floor( Math.random() * 999 );            
+            let obj = { name: `Robs-${randomNumber}`, age: randomNumber };                
+            axios.post( webAPIUrl, obj )
+                .then( response => {
+                    outputDiv.innerHTML = JSON.stringify( response.data );
+                } )                */
+        }
+        
+        function putItem(){
+            
+            const updateMonster = { id:1, name: "Count Duck", age: 3 };
+        
+            axios.put(webAPIUrl, updateMonster)
+            .then( response => {
+                    outputDiv.innerHTML = JSON.stringify( response.data ); 
+                });
+            
+            /*const randomNumber = Math.floor( Math.random() * 999 );        
+            let obj = { id: 1, name: "Robs-Editet", age: 0 };
+            axios.put( webAPIUrl, obj )
+                .then( response => {
+                    outputDiv.innerHTML = JSON.stringify( response.data ); 
+                });*/
+        }
+        
+        function deleteItem(){ //delete sender inn id til elementet som skal slettes
+            
+            axios.delete("https://localhost:5001/monsters/3")
+                .then( response => {
+                    outputDiv.innerHTML = JSON.stringify( response.data );
+                });
+            
+            
+            /*let id = 1;
+            axios.delete( `${webAPIUrl}/${id}` )
+                .then( response => {
+                    outputDiv.innerHTML = JSON.stringify( response.data );
+                } )*/
+        }        
+        
+    </script>
+    
+</body>
+</html>
