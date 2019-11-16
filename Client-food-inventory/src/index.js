@@ -1,9 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import './index.css';
+import { createStore } from 'redux';
+import allReducers from './reducers';
+import { Provider } from 'react-redux';
+
+const carRacingStore = createStore( allReducers );
 
 ReactDOM.render(
-  <App />,
-  document.getElementById('root')
+    <Provider store={carRacingStore}>
+        <App />
+    </Provider>
+    , document.getElementById('root')
 );

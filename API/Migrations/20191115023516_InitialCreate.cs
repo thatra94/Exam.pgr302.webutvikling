@@ -13,8 +13,8 @@ namespace exam.pgr302.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
-                    Price = table.Column<string>(nullable: true),
-                    type = table.Column<string>(nullable: true)
+                    Price = table.Column<int>(nullable: false),
+                    Type = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

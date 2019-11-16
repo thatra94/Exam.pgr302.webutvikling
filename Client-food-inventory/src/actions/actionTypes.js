@@ -1,0 +1,3 @@
+export const GET_ALL_CONTACTS = 'GET_ALL_CONTACTS';
+export const CREATE_NEW_FOOD = 'CREATE_NEW_FOOD';
+export const REMOVE_FOOD = 'REMOVE_FOOD';
