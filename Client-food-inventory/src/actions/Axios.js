@@ -1,7 +1,9 @@
 import Axios from "axios";
 
+const apiUrl = "https://localhost:5001/food";
+
 export function update(data) {
-    Axios.put("https://localhost:5001/food", data)
+    Axios.put(apiUrl, data)
         .then(response => {
             console.log(response)
         })
@@ -11,7 +13,7 @@ export function update(data) {
 }
 
 export function deleteFoodById(data) {
-    Axios.delete(`${"https://localhost:5001/food"}/${data.id}`)
+    Axios.delete(`${apiUrl}/${data.id}`)
         .then(response => {
             console.log(response)
         })
@@ -21,7 +23,7 @@ export function deleteFoodById(data) {
 }
 
 export function postFood(newFood) {
-    Axios.post("https://localhost:5001/food", newFood)
+    Axios.post(apiUrl, newFood)
         .then(response => {
             console.log(response)
         })

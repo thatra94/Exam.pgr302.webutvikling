@@ -3,19 +3,17 @@ import axios from 'axios';
 
 const apiUrl = "https://localhost:5001/food";
 
-export const incrementFood = (quantity) => {
-    console.log(quantity);
-    console.log("quantity");
+export const incrementFood = (food) => {
     return {
         type: actionTypes.INCREMENT_QUANTITY,
-        quantity
+        food
     };
 };
 
-export const decrementFood = (quantity) => {
+export const decrementFood = (food) => {
     return {
         type: actionTypes.DECREMENT_QUANTITY,
-        quantity
+        food
     };
 };
 

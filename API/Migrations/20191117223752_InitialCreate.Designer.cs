@@ -8,7 +8,7 @@ using exam.pgr302.Models;
 namespace exam.pgr302.Migrations
 {
     [DbContext(typeof(FoodContext))]
-    [Migration("20191115023516_InitialCreate")]
+    [Migration("20191117223752_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,6 +27,9 @@ namespace exam.pgr302.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Price")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Quantity")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Type")

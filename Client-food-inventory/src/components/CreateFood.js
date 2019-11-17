@@ -12,6 +12,7 @@ class CreateFood extends Component {
         this.state = {
             newName: "Legg til matvare",
             newPrice: 10,
+            newQuantity: 0,
             newType: "Type Mat"
         }
     }
@@ -32,6 +33,13 @@ class CreateFood extends Component {
         let priceText = parseInt(event.target.value);
         this.setState( {newPrice: priceText} );
     };
+
+
+    quantityChange = (event ) => {
+        let quantityText = parseInt(event.target.value);
+        this.setState( {newQuantity: quantityText} );
+    };
+
     typeChange = (event ) => {
         let typeText = event.target.value;
         this.setState( {newType: typeText} );
@@ -45,6 +53,7 @@ class CreateFood extends Component {
                         {data.id}
                         {data.name}
                         {data.price}
+                        {data.quantity}
                         {data.type}
                     </li>
                 </div>
@@ -70,7 +79,7 @@ class CreateFood extends Component {
     }
 
     decrementQuantity(data) {
-        this.props.decrementQuantity(data);
+        this.props.decrementFood(data);
         console.log(data);
         axios.update(data);
     }
@@ -85,6 +94,7 @@ class CreateFood extends Component {
         let newFood = {
             "name": this.state.newName,
             "price": this.state.newPrice,
+            "quantity": this.state.newQuantity,
             "type": this.state.newType
         };
         this.props.createFood(newFood);
@@ -99,6 +109,7 @@ class CreateFood extends Component {
                     <label>Ny matvare</label>
                     <input onChange={ this.nameChange } type="text" value={ this.state.newName } />
                     <input onChange={ this.priceChange } type="number" value={ this.state.newPrice } />
+                    <input onChange={ this.quantityChange } type="number" value={ this.state.newQuantity } />
                     <input onChange={ this.typeChange } type="text" value={ this.state.newType } />
 
                     <input type="submit" value="Lagre matvare" />

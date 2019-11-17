@@ -10,6 +10,8 @@ namespace exam.pgr302.Models
 
         public int Price { get; set; }
 
+        public int Quantity { get; set; }
+
         public string Type { get; set; }
         }
 

@@ -27,6 +27,9 @@ namespace exam.pgr302.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Type")
                         .HasColumnType("TEXT");
 
