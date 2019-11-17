@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import * as foodActions from '../actions/index';
-import {connect} from "react-redux";
-import {applyMiddleware as dispatch} from "redux";
-import {deleteFood} from "../actions";
-import {getAllFood} from "../actions/index";
-
+import {connect, useSelector} from "react-redux";
+import {getFoodList} from "../actions";
 
 
 class CreateFood extends Component {
@@ -21,14 +18,18 @@ class CreateFood extends Component {
         }
     }
 
+    componentDidMount(){
+        //this.props.getFoodList();
 
-    componentDidUpdate(prevProps) {
-        const { foodList } = this.props;
-
-        if (foodList !== prevProps.foodList) {
-            this.props.getFoodList();
-        }
+        /*
+        Axios.get("https://localhost:5001/food")
+            .then( response => {
+                dispatch(foodActions.addFood())
+                //this.setState( { food: response.data } )
+            });
+        //mapStateToProps(this.state.food);*/
     }
+
 
     nameChange = (event ) => {
         let nameText = event.target.value;
@@ -46,9 +47,9 @@ class CreateFood extends Component {
 
     listView(data, index){
         return (
-            <div className="row" key={data.id}>
+            <div className="row">
                 <div className="col-md-10">
-                    <li className="list-group-item clearfix" key={data.id}>
+                    <li key={index} className="list-group-item clearfix">
                         {data.id}
                         {data.name}
                         {data.price}
@@ -56,7 +57,7 @@ class CreateFood extends Component {
                     </li>
                 </div>
                 <div className="col-md-2">
-                    <button onClick={(e) => this.deleteFood(data, index)} className="btn btn-danger">
+                    <button onClick={(e) => this.deleteFood(e, index)} className="btn btn-danger">
                         Remove
                     </button>
                 </div>
@@ -64,18 +65,18 @@ class CreateFood extends Component {
         )
     }
 
-    deleteFood(data, index) {
-        console.log(data.id)
-        let id = data.id;
-        Axios.delete(`${"https://localhost:5001/food"}/${id}`)
+
+    deleteFood(e, index){
+        let id = 2;
+        e.preventDefault();
+        Axios.delete( `${"https://localhost:5001/food"}/${id}` )
             .then(response => {
-                this.props.getFoodList();
-                console.log(response)
-            })
+            console.log(response)
+        })
             .catch(error => {
                 console.log(error);
             });
-        this.props.deleteFood(index);
+
     }
 
     postNewFood = (event) => {
@@ -85,24 +86,16 @@ class CreateFood extends Component {
             "price": this.state.newPrice,
             "type": this.state.newType
         };
-        this.props.createFood(newFood);
-
         Axios.post("https://localhost:5001/food", newFood)
             .then(response => {
-                this.props.getFoodList();
                 console.log(response)
             })
             .catch(error => {
                 console.log(error);
             });
+        this.props.createFood(newFood);
 
     };
-/*
-    getFood = () => {
-        return this.props.food.map(food => {
-            return <p>{food.name}</p>
-        });
-    };*/
 
     render(){
         return (
@@ -114,16 +107,17 @@ class CreateFood extends Component {
                     <input onChange={ this.priceChange } type="number" value={ this.state.newPrice } />
                     <input onChange={ this.typeChange } type="text" value={ this.state.newType } />
 
+
                     <input type="submit" value="Lagre matvare" />
                 </form>
 
-
                 <div className="container">
                     <h1>Clientside Food Application</h1>
-
+                    <hr />
                     <div>
-                        {<ul className="list-group" >
-                            {this.props.foodList.map((food, i) => this.listView(food, i))}
+                        <hr/>
+                        {<ul className="list-group">
+                            {this.props.food.map((food, i) => this.listView(food, i))}
                         </ul>}
                     </div>
                 </div>
@@ -134,12 +128,8 @@ class CreateFood extends Component {
 
 
 const mapStateToProps = (state = {}) => {
-    console.log(state.foodList);
-    console.log("foodlist");
-    console.log(state.food);
     return {
-        food: state.food,
-        foodList: state.foodList
+        food: state.food
     }
 };
 
@@ -148,7 +138,6 @@ const mapDispatchToProps = (dispatch) => {
     return {
         createFood: food => dispatch(foodActions.createFood(food)),
         deleteFood: index => dispatch(foodActions.deleteFood(index)),
-        getFoodList: () => dispatch(foodActions.getAllFood())
     }
 
 };

@@ -1,5 +1,7 @@
 import * as actionTypes from './actionTypes';
+import axios from 'axios';
 
+const apiUrl = "https://localhost:5001/food";
 
 export const addFood = ( newFood ) => {
     return {
@@ -15,10 +17,10 @@ export const incrementFood = () => {
 };
 
 
-export const createFood = (contact) => {
+export const createFood = (food) => {
     return {
         type: actionTypes.CREATE_NEW_FOOD,
-        contact: contact
+        food: food
     }
 };
 
@@ -27,4 +29,24 @@ export const deleteFood = (id) => {
         type: actionTypes.REMOVE_FOOD,
         id: id
     }
+};
+
+export const getAllFood = () => {
+    return (dispatch) => {
+        return axios.get(apiUrl)
+            .then(response => {
+                dispatch(getFood(response.data))
+            })
+            .catch(error => {
+                throw(error);
+            });
+    };
+};
+
+
+function getFood(foodList) {
+    return {
+        type: actionTypes.SET_FOOD_LIST,
+        foodList: foodList
+    };
 }

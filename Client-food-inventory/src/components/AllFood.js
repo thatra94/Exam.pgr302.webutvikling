@@ -18,9 +18,12 @@ class AllFood extends Component {
         return this.state.food.map(food => {
             return <p>{food.name}</p>
         });
+
     };
 
     render(){
+        console.log(this.state.food);
+
         return (
             <section>
                 <h3>All food</h3>

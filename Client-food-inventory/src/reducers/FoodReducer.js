@@ -5,7 +5,7 @@ export default (state = [], action) => {
         case actionTypes.CREATE_NEW_FOOD:
             return [
                 ...state,
-                Object.assign({}, action.contact)
+                Object.assign({}, action.food)
             ];
         case actionTypes.REMOVE_FOOD:
             return state.filter((data, i) => i !== action.id);

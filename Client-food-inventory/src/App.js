@@ -1,10 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Nav from './components/Nav';
-import { useSelector, useDispatch } from 'react-redux';
-import { incrementFood, addFood } from './actions';
-
-
-
 
 function App() {
 

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as foodActions from '../actions/index';
 
 class Test extends Component {
+    const
 
     constructor(props){
         super(props);
@@ -28,7 +29,7 @@ class Test extends Component {
         this.setState({
             name: ''
         });
-        this.props.createContact(contact);
+        this.props.createFood(contact);
     }
 
     listView(data, index){
@@ -50,14 +51,14 @@ class Test extends Component {
 
     deleteContact(e, index){
         e.preventDefault();
-        this.props.deleteContact(index);
+        this.props.deleteFood(index);
     }
 
     render() {
 
         return(
             <div className="container">
-                <h1>Clientside Contacts Application</h1>
+                <h1>Clientside Food Application</h1>
                 <hr />
                 <div>
                     <h3>Add Contact Form</h3>
@@ -67,7 +68,7 @@ class Test extends Component {
                     </form>
                     <hr />
                     { <ul className="list-group">
-                        {this.props.contacts.map((contact, i) => this.listView(contact, i))}
+                        {this.props.food.map((contact, i) => this.listView(contact, i))}
                     </ul> }
                 </div>
             </div>
@@ -77,13 +78,13 @@ class Test extends Component {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        contacts: state.contacts
+        food: state.food
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        createContact: contact => dispatch(foodActions.createFood(contact)),
+        createFood: contact => dispatch(foodActions.createFood(contact)),
         deleteContact: index =>dispatch(foodActions.deleteFood(index))
     }
 };
