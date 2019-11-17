@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import numberOfFoodReducer from "./NumberOfFoodReducer";
+import numberOfFoodReducer from "./FoodQuantityReducer";
 import FoodListReducer from "./FoodListReducer";
 import food from './FoodReducer';
 

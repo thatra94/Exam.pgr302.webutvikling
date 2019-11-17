@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import * as foodActions from '../actions/index';
-import {connect} from "react-redux";
-import {applyMiddleware as dispatch} from "redux";
-import {deleteFood} from "../actions";
-import {getAllFood} from "../actions/index";
-
+import {connect, useSelector} from "react-redux";
+import {incrementFood} from "../actions";
 
 
 class CreateFood extends Component {
@@ -14,7 +11,6 @@ class CreateFood extends Component {
     constructor(props){
         super(props);
         this.state = {
-            food: [],
             newName: "Legg til matvare",
             newPrice: 10,
             newType: "Type Mat"
@@ -56,18 +52,38 @@ class CreateFood extends Component {
                     </li>
                 </div>
                 <div className="col-md-2">
-                    <button onClick={(e) => this.deleteFood(data, index)} className="btn btn-danger">
+                    <button onClick={() => this.deleteFood(data, index)} className="btn btn-danger">
                         Remove
+                    </button>
+                    <button onClick={() => this.updateQuantity(data)} className="btn btn-danger">
+                        Quantity +
+                    </button>
+                    <button className="btn btn-danger">
+                        Quantity -
                     </button>
                 </div>
             </div>
         )
     }
 
+    updateQuantity(data) {
+        this.props.incrementFood(data);
+        console.log(data);
+
+        Axios.put("https://localhost:5001/food", data)
+            .then(response => {
+                this.props.getFoodList();
+                console.log(response)
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
     deleteFood(data, index) {
-        console.log(data.id)
+        console.log(data.id);
         let id = data.id;
-        Axios.delete(`${"https://localhost:5001/food"}/${id}`)
+        Axios.delete(`${"https://localhost:5001/food"}/${data.id}`)
             .then(response => {
                 this.props.getFoodList();
                 console.log(response)
@@ -95,14 +111,7 @@ class CreateFood extends Component {
             .catch(error => {
                 console.log(error);
             });
-
     };
-/*
-    getFood = () => {
-        return this.props.food.map(food => {
-            return <p>{food.name}</p>
-        });
-    };*/
 
     render(){
         return (
@@ -116,7 +125,6 @@ class CreateFood extends Component {
 
                     <input type="submit" value="Lagre matvare" />
                 </form>
-
 
                 <div className="container">
                     <h1>Clientside Food Application</h1>
@@ -132,23 +140,19 @@ class CreateFood extends Component {
     }
 }
 
-
 const mapStateToProps = (state = {}) => {
-    console.log(state.foodList);
-    console.log("foodlist");
-    console.log(state.food);
     return {
-        food: state.food,
         foodList: state.foodList
     }
 };
-
 
 const mapDispatchToProps = (dispatch) => {
     return {
         createFood: food => dispatch(foodActions.createFood(food)),
         deleteFood: index => dispatch(foodActions.deleteFood(index)),
-        getFoodList: () => dispatch(foodActions.getAllFood())
+        getFoodList: () => dispatch(foodActions.getAllFood()),
+        incrementFood: quantity => dispatch(foodActions.incrementFood(quantity)),
+        decrementFood: quantity => dispatch(foodActions.decrementFood(quantity))
     }
 
 };

@@ -3,16 +3,19 @@ import axios from 'axios';
 
 const apiUrl = "https://localhost:5001/food";
 
-export const addFood = ( newFood ) => {
+export const incrementFood = (quantity) => {
+    console.log(quantity);
+    console.log("quantity");
     return {
-        type: "ADD_FOOD",
-        newFood
-    }
+        type: actionTypes.INCREMENT_QUANTITY,
+        quantity
+    };
 };
 
-export const incrementFood = () => {
+export const decrementFood = (quantity) => {
     return {
-        type: "INCREMENT_FOOD"
+        type: actionTypes.DECREMENT_QUANTITY,
+        quantity
     };
 };
 
@@ -20,14 +23,14 @@ export const incrementFood = () => {
 export const createFood = (food) => {
     return {
         type: actionTypes.CREATE_NEW_FOOD,
-        food: food
+        food
     }
 };
 
 export const deleteFood = (id) => {
     return {
         type: actionTypes.REMOVE_FOOD,
-        id: id
+        id
     }
 };
 
