@@ -10,11 +10,15 @@ class CreateFood extends Component {
     constructor(props){
         super(props);
         this.state = {
-            newName: "Legg til matvare",
-            newPrice: 10,
-            newQuantity: 0,
-            newType: "Type Mat"
+            newName: "",
+            newPrice: "",
+            newQuantity: "",
+            newType: ""
         }
+    }
+
+    componentDidMount() {
+        this.props.getFoodList();
     }
 
     componentDidUpdate(prevProps) {
@@ -45,28 +49,27 @@ class CreateFood extends Component {
         this.setState( {newType: typeText} );
     };
 
-    listView(data, index){
+    listView(data, index) {
         return (
-            <div className="row" key={data.id}>
-                <div className="col-md-10">
-                    <li className="list-group-item clearfix" key={data.id}>
-                        {data.id}
-                        {data.name}
-                        {data.price}
-                        {data.quantity}
-                        {data.type}
-                    </li>
-                </div>
-                <div className="col-md-2">
-                    <button onClick={() => this.deleteFood(data, index)} className="btn btn-danger">
-                        Remove
-                    </button>
-                    <button onClick={() => this.incrementQuantity(data) } className="btn btn-danger">
-                        Quantity +
-                    </button>
-                    <button onClick={() => this.decrementQuantity(data) } className="btn btn-danger">
-                        Quantity -
-                    </button>
+            <div class="container">
+                <div className="row" key={data.id}>
+                    <ul className="list-group list-group-horizontal">
+                        <li className="list-group-item col-2">ID. {data.id}</li>
+                        <li className="list-group-item col-2">Name: {data.name}</li>
+                        <li className="list-group-item col-2">Price: {data.price}</li>
+                        <li className="list-group-item col-2">Quantity: {data.quantity}</li>
+                        <li className="list-group-item col-2">Type: {data.type}</li>
+
+                        <button onClick={() => this.incrementQuantity(data)} className="btn btn-primary col-1">
+                             +
+                        </button>
+                        <button onClick={() => this.decrementQuantity(data)} className="btn btn-secondary col-1">
+                             -
+                        </button>
+                        <button onClick={() => this.deleteFood(data, index)} className="btn btn-danger col-2">
+                            Remove
+                        </button>
+                    </ul>
                 </div>
             </div>
         )
@@ -101,27 +104,48 @@ class CreateFood extends Component {
         axios.postFood(newFood);
     };
 
-    render(){
+    render() {
         return (
             <section>
-                <h3>Create food</h3>
-                <form onSubmit={ this.postNewFood }>
-                    <label>Ny matvare</label>
-                    <input onChange={ this.nameChange } type="text" value={ this.state.newName } />
-                    <input onChange={ this.priceChange } type="number" value={ this.state.newPrice } />
-                    <input onChange={ this.quantityChange } type="number" value={ this.state.newQuantity } />
-                    <input onChange={ this.typeChange } type="text" value={ this.state.newType } />
-
-                    <input type="submit" value="Lagre matvare" />
-                </form>
 
                 <div className="container">
+
+                    <h3>Create food</h3>
+
+                    <form onSubmit={this.postNewFood}>
+                        <div className="form-row">
+                            <div className="col-sm-2 col-md-2 col-lg-2">
+                                <input onChange={this.nameChange} type="text" className="form-control"
+                                       placeholder="Food name" value={this.state.newName}/>
+                            </div>
+                            <div className="col-sm-2 col-md-2 col-lg-2">
+                                <input onChange={this.priceChange} type="number" className="form-control"
+                                       placeholder="Price" value={this.state.newPrice}/>
+                            </div>
+                            <div className="col-sm-2 col-md-2 col-lg-2">
+                                <input onChange={this.quantityChange} type="number" className="form-control"
+                                       placeholder="Quantity" value={this.state.newQuantity}/>
+                            </div>
+                            <div className="col-sm-2 col-md-2 col-lg-2">
+                                <input onChange={this.typeChange} type="text" className="form-control"
+                                       placeholder="Category" value={this.state.newType}/>
+                            </div>
+                            <div className="col-sm-2 col-md-2 col-lg-2">
+                                <input type="submit" value="Lagre matvare" className="btn btn-primary"/>
+                            </div>
+                        </div>
+
+
+                    </form>
+
                     <h1>Clientside Food Application</h1>
 
-                    <div>
-                        {<ul className="list-group" >
-                            {this.props.foodList.map((food, i) => this.listView(food, i))}
-                        </ul>}
+                    <div class="container col-12">
+                        <div>
+                            <div className="list-group col-2">
+                                {this.props.foodList.map((food, i) => this.listView(food, i))}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -148,4 +172,3 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps,mapDispatchToProps)(CreateFood);
 
 
-//export default CreateFood;

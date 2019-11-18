@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
 import {applyMiddleware, createStore} from 'redux';
 import allReducers from './reducers';
