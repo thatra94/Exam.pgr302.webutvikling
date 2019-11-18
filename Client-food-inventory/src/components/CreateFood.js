@@ -51,15 +51,14 @@ class CreateFood extends Component {
 
     listView(data, index) {
         return (
-            <div class="container">
-                <div className="row" key={data.id}>
-                    <ul className="list-group list-group-horizontal">
-                        <li className="list-group-item col-2">ID. {data.id}</li>
-                        <li className="list-group-item col-2">Name: {data.name}</li>
-                        <li className="list-group-item col-2">Price: {data.price}</li>
-                        <li className="list-group-item col-2">Quantity: {data.quantity}</li>
-                        <li className="list-group-item col-2">Type: {data.type}</li>
-
+            <div className="container">
+                <div className="row">
+                    <ul className="list-group list-group-horizontal" key={index}>
+                        <p className="list-group-item col-2 col-lg-2">ID.{data.id}</p>
+                        <p className="list-group-item col-2">Name.{data.name}</p>
+                        <p className="list-group-item col-2">Price.{data.price}</p>
+                        <p className="list-group-item col-2">Quantity.{data.quantity}</p>
+                        <p className="list-group-item col-2">Type.{data.type}</p>
                         <button onClick={() => this.incrementQuantity(data)} className="btn btn-primary col-1">
                              +
                         </button>
@@ -114,35 +113,40 @@ class CreateFood extends Component {
 
                     <form onSubmit={this.postNewFood}>
                         <div className="form-row">
-                            <div className="col-sm-2 col-md-2 col-lg-2">
+                            <div className="col-12 col-sm-12 col-lg-3">
                                 <input onChange={this.nameChange} type="text" className="form-control"
-                                       placeholder="Food name" value={this.state.newName}/>
+                                       placeholder="Food name" value={this.state.newName} required/>
                             </div>
-                            <div className="col-sm-2 col-md-2 col-lg-2">
+                            <div className="col-12 col-sm-12 col-lg-3">
                                 <input onChange={this.priceChange} type="number" className="form-control"
-                                       placeholder="Price" value={this.state.newPrice}/>
+                                       placeholder="Price" value={this.state.newPrice} required/>
                             </div>
-                            <div className="col-sm-2 col-md-2 col-lg-2">
+                            <div className="col-12 col-sm-12 col-lg-3">
                                 <input onChange={this.quantityChange} type="number" className="form-control"
-                                       placeholder="Quantity" value={this.state.newQuantity}/>
+                                       placeholder="Quantity" value={this.state.newQuantity} required/>
                             </div>
-                            <div className="col-sm-2 col-md-2 col-lg-2">
-                                <input onChange={this.typeChange} type="text" className="form-control"
-                                       placeholder="Category" value={this.state.newType}/>
+                            <div className="col-12 col-sm-12 col-lg-3">
+                                <select onChange={this.typeChange} className="custom-select custom-select-md mb-3">
+                                    <option defaultValue="Food">Food</option>
+                                    <option value="Vegetable">Vegetable</option>
+                                    <option value="Fish">Fish</option>
+                                    <option value="Meat">Meat</option>
+                                </select>
                             </div>
-                            <div className="col-sm-2 col-md-2 col-lg-2">
-                                <input type="submit" value="Lagre matvare" className="btn btn-primary"/>
+                            <div className="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <input type="submit" value="Save" className="btn btn-primary col-12 col-sm-12 col-md-12 col-lg-12"/>
                             </div>
                         </div>
 
 
                     </form>
 
-                    <h1>Clientside Food Application</h1>
 
-                    <div class="container col-12">
+                    <div className="container">
+                        <h1>INVENTORY</h1>
+
                         <div>
-                            <div className="list-group col-2">
+                            <div className="list-group col-6">
                                 {this.props.foodList.map((food, i) => this.listView(food, i))}
                             </div>
                         </div>

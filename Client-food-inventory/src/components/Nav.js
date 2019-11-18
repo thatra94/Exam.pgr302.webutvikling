@@ -9,11 +9,11 @@ class Nav extends Component {
             <section>
                 <nav>
                 <BrowserRouter>
-                    <ul className="nav nav-tabs">
-                        <li  className="nav-item">
+                    <ul className="nav nav-tabs" key="nav">
+                        <li className="nav-item" key="home">
                             <Link to="/" className="nav-link">Home</Link>
                         </li>
-                        <li className="nav-item">
+                        <li className="nav-item" key="Food">
                             <Link to="/createFood" className="nav-link" >Add Food</Link>
                         </li>
                     </ul>

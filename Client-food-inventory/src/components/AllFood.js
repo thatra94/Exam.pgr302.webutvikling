@@ -26,11 +26,7 @@ class AllFood extends Component {
 
         return (
             <section>
-                <h3>All food</h3>
-                <section>
-                    { this.getFood() }
-                </section>
-
+                <h3>This is a simple food inventory application</h3>
             </section>
         )
     }
