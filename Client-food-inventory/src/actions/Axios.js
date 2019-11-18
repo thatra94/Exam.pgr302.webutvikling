@@ -35,3 +35,4 @@ export function postFood(newFood) {
             console.log(error);
         });
 }
+

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-import AllFood from './AllFood';
+import Home from './Home';
 import CreateFood from './CreateFood';
 
 class Nav extends Component {
@@ -9,16 +9,16 @@ class Nav extends Component {
             <section>
                 <nav>
                 <BrowserRouter>
-                    <ul className="nav nav-tabs" key="nav">
-                        <li className="nav-item" key="home">
+                    <ul className="nav nav-tabs">
+                        <li className="nav-item">
                             <Link to="/" className="nav-link">Home</Link>
                         </li>
-                        <li className="nav-item" key="Food">
+                        <li className="nav-item">
                             <Link to="/createFood" className="nav-link" >Add Food</Link>
                         </li>
                     </ul>
                         <Switch>
-                            <Route exact path="/" component={ AllFood } />
+                            <Route exact path="/" component={ Home } />
                             <Route path="/createFood" component={ CreateFood } />
                         </Switch>
                     </BrowserRouter>

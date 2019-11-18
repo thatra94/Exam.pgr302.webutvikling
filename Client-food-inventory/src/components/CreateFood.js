@@ -51,24 +51,23 @@ class CreateFood extends Component {
 
     listView(data, index) {
         return (
-            <div className="container">
-                <div className="row">
-                    <ul className="list-group list-group-horizontal" key={index}>
-                        <p className="list-group-item col-2 col-lg-2">ID.{data.id}</p>
-                        <p className="list-group-item col-2">Name.{data.name}</p>
-                        <p className="list-group-item col-2">Price.{data.price}</p>
-                        <p className="list-group-item col-2">Quantity.{data.quantity}</p>
-                        <p className="list-group-item col-2">Type.{data.type}</p>
-                        <button onClick={() => this.incrementQuantity(data)} className="btn btn-primary col-1">
-                             +
-                        </button>
-                        <button onClick={() => this.decrementQuantity(data)} className="btn btn-secondary col-1">
-                             -
-                        </button>
-                        <button onClick={() => this.deleteFood(data, index)} className="btn btn-danger col-2">
-                            Remove
-                        </button>
-                    </ul>
+            <div className="container" key={index}>
+                <div className="row col-12 col-sm-12 col-md-12 col-lg-12 mt-5">
+                    <div className="card col-12 col-lg-12">ID {data.id}</div>
+                    <div className="card col-12 col-md-6 col-lg-3">Name {data.name}</div>
+                    <div className="card col-12 col-md-6 col-lg-3">Price {data.price}</div>
+                    <div className="card col-12 col-md-6 col-lg-3">Quantity {data.quantity}</div>
+                    <div className="card col-12 col-md-6 col-lg-3">Type {data.type}</div>
+                    <button onClick={() => this.deleteFood(data, index)} className="btn btn-danger col-12 col-md-12 col-lg-6">
+                        Remove
+                    </button>
+                    <button onClick={() => this.incrementQuantity(data)} className="btn btn-primary col-12 col-md-6 col-lg-3">
+                        +
+                    </button>
+                    <button onClick={() => this.decrementQuantity(data)} className="btn btn-secondary col-12 col-md-6 col-lg-3">
+                        -
+                    </button>
+
                 </div>
             </div>
         )
@@ -137,20 +136,15 @@ class CreateFood extends Component {
                                 <input type="submit" value="Save" className="btn btn-primary col-12 col-sm-12 col-md-12 col-lg-12"/>
                             </div>
                         </div>
-
-
                     </form>
 
-
-                    <div className="container">
                         <h1>INVENTORY</h1>
 
                         <div>
-                            <div className="list-group col-6">
+                            <div className="list-group col-12">
                                 {this.props.foodList.map((food, i) => this.listView(food, i))}
                             </div>
                         </div>
-                    </div>
                 </div>
             </section>
         )

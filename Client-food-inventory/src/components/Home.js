@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Axios from 'axios';
 
-class AllFood extends Component {
+class Home extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -14,12 +14,6 @@ class AllFood extends Component {
                 this.setState( { food: response.data } );
             });
     }
-    getFood = () => {
-        return this.state.food.map(food => {
-            return <p>{food.name}</p>
-        });
-
-    };
 
     render(){
         console.log(this.state.food);
@@ -32,4 +26,4 @@ class AllFood extends Component {
     }
 }
 
-export default AllFood;
+export default Home;
